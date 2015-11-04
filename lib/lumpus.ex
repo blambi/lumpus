@@ -1,0 +1,2 @@
+defmodule Lumpus do
+end
