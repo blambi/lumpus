@@ -56,6 +56,14 @@ defmodule Lumpus.World.Room do
     h = Agent.get(room, &HashDict.get(&1, 'contents'))
     h = h ++ [thing]
     Agent.update(room, &HashDict.put(&1, 'contents', h))
+
+    # This was apparently wrong
+    #Agent.get_and_update(room, fn(state) ->
+    #  h = HashDict.get(state, 'contents')
+    #  h = h ++ [thing]
+    #  HashDict.update(state, 'contents', h)
+    #  {h, h}
+    #end)
   end
 
   def get_contents(room) do

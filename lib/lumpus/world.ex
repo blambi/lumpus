@@ -7,41 +7,24 @@ defmodule Lumpus.World do
     for _ <- 1..size, do: create_row(size)
   end
 
-  # def create_row(size) do
-  #   room = Lumpus.World.Room.new()
-  #   create_row(size-1, room)
-
-  #   room
-  # end
-
-  # def create_row(left, last) do
-  #   room = Lumpus.World.Room.new()
-  #   if !is_nil(last) do
-  #     Lumpus.World.Room.tunnel_rooms(room, last, :west)
-  #   end
-
-  #   if left >= 0 do
-  #     create_row(left-1, room)
-  #   end
-
-  #   room
-  # end
-  
   def create_row(size) do
-    # FIXME: the last idea doesn't work at all here..
-    room = nil # used for both keeping track of our room and the last room..
-    for _ <- 1..size do
-      room = create_column(room)
-    end
+    create_row(nil, size)
   end
 
-  def create_column(last) do
+  def create_row(last, left) do
     room = Lumpus.World.Room.new()
     if !is_nil(last) do
       IO.puts("Linking rooms")
       Lumpus.World.Room.tunnel_rooms(room, last, :west)
     end
-    room
+
+    if left > 0 do
+      rooms = create_row(room, left - 1)
+    else
+      rooms = []
+    end
+
+    [room] ++ rooms
   end
 
   def get_room(world, row, column) do
@@ -49,4 +32,3 @@ defmodule Lumpus.World do
     |> Enum.at(column)
   end
 end
-
