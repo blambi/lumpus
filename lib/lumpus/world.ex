@@ -18,7 +18,7 @@ defmodule Lumpus.World do
       Lumpus.World.Room.tunnel_rooms(room, last, :west)
     end
 
-    if left > 0 do
+    if left > 1 do # 1 is last..
       rooms = create_row(room, left - 1)
     else
       rooms = []
