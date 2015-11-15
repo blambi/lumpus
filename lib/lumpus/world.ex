@@ -15,7 +15,6 @@ defmodule Lumpus.World do
   defp create_row(last, left) do
     room = Lumpus.World.Room.new()
     if !is_nil(last) do
-      #IO.puts("Linking rooms")
       Lumpus.World.Room.tunnel_rooms(room, last, :west)
     end
 
@@ -35,16 +34,9 @@ defmodule Lumpus.World do
   end
 
   defp weave_rows(rows, size, position) do
-    #IO.write "WR: "
-    #IO.puts position
     if position < size - 1 do # nock down the last to avoid bottom being empty
       top_row = Enum.at(rows, position)
       bottom_row = Enum.at(rows, position + 1)
-
-      #IO.write "Top Row: "
-      #IO.inspect top_row
-      #IO.write "Bottom Row: "
-      #IO.inspect bottom_row
 
       weave_columns_between_rows(top_row, bottom_row, size)
       weave_rows(rows, size, position + 1)
@@ -58,17 +50,9 @@ defmodule Lumpus.World do
   end
 
   defp weave_columns_between_rows(top, bottom, size, position) do
-    #IO.write "WR C: "
-    #IO.puts position
     if position < size do
       top_room = Enum.at(top, position)
       bottom_room = Enum.at(bottom, position)
-
-      #IO.write "Top: "
-      #IO.inspect top_room
-      #IO.write "Bottom: "
-      #IO.inspect bottom_room
-      #IO.puts("VLinking rooms")
 
       Lumpus.World.Room.tunnel_rooms(bottom_room, top_room, :north)
       weave_columns_between_rows(top, bottom, size, position + 1)
