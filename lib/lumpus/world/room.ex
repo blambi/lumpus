@@ -58,4 +58,18 @@ defmodule Lumpus.World.Room do
   def get_contents(room) do
     Agent.get(room, &Map.get(&1, 'contents'))
   end
+
+  @doc """
+  Checks if any adjoining room to specified `room` contains `thing`
+  """
+  def is_near(room, thing) do
+    rooms = Lumpus.World.Room.get_tunnels(room)
+
+    Enum.any?(rooms, fn(r) ->
+      get_contents(r)
+      |> Enum.any?(fn(object) ->
+        thing == object
+      end)
+    end)
+  end
 end
