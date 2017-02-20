@@ -1,5 +1,6 @@
 defmodule Lumpus.Game do
-  # Used by all "players" etc to poke around in the world
+  # Used by all "players" etc to poke around in the world, and all
+  # glue logic.
   use GenServer
 
   alias Lumpus.World
@@ -23,6 +24,7 @@ defmodule Lumpus.Game do
   Register/Resume player
   """
   def player_join(nick) do
+    
   end
 
   def player_move(nick, target_room) when is_integer(target_room) do
