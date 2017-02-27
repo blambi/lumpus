@@ -63,4 +63,18 @@ defmodule Lumpus.World do
     Enum.at(world, row)
     |> Enum.at(column)
   end
+
+  def get_random_room(world) do
+    # TODO: Just totaly random to get it working for now..
+    #       later ensure that room is empty.
+    size =
+      Enum.at(world, 0)
+      |> length()
+
+    get_room(
+      world,
+      :rand.uniform(size),
+      :rand.uniform(size)
+    )
+  end
 end
